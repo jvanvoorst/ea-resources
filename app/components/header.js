@@ -1,23 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Grid, Row, Col} from 'react-bootstrap';
+import {Row, Col} from 'react-bootstrap';
 
 function Header(props) {
     return (
-        <Grid>
-            <Row>
-                <header style={styles.header}>
-                    <div style={styles.banner}>
-                        <Col md={6}>
-                            <p style={styles.bannerText}>University Libraries</p>
-                        </Col>
-                        <Col md={6}>
-                            <p style={styles.appName}>{props.appName}</p>
-                        </Col>
-                    </div>
-                </header>
-            </Row>
-        </Grid>
+        <Row>
+            <header style={styles.header}>
+                <div style={styles.banner}>
+                    <Col md={6}>
+                        <p style={styles.bannerText}>University Libraries</p>
+                    </Col>
+                    <Col md={6}>
+                        <p style={styles.appName}>{props.appName}</p>
+                    </Col>
+                </div>
+            </header>
+        </Row>
     );
 }
 
