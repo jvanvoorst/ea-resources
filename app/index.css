@@ -1,0 +1,7 @@
+.meta-data div, h5 {
+    display: inline;
+}
+.meta-data div {
+    display: inline-block;
+    padding-right: 5rem
+}

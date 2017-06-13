@@ -6,12 +6,14 @@
   "babel": {
     "presets": [
       "env",
-      "react"
+      "react",
+      "flow"
     ]
   },
   "scripts": {
-    "create": "webpack",
-    "start": "webpack-dev-server --port 3000"
+    "build": "webpack",
+    "start": "webpack-dev-server --port 3000",
+    "test": "eslint app"
   },
   "keywords": [],
   "author": "",
@@ -25,9 +27,11 @@
     "react-router-dom": "^4.1.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.5.1",
+    "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.3",
     "eslint": "^3.19.0",

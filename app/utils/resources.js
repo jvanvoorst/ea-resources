@@ -1,3 +1,5 @@
+/* eslint quotes: ["error", "double"] */
+
 const resources = [
     {
         "id": {
