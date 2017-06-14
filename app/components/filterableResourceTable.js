@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Col} from 'react-bootstrap';
 
 import ResourceTable from './resourceTable';
-import Filter from './filter';
+import FilterSidebar from './filterSidebar';
 
 class FilterableResourceTable extends React.Component {
 
@@ -11,10 +11,15 @@ class FilterableResourceTable extends React.Component {
         super(props);
 
         this.state = {
-            searchText: ''
+            searchText: '',
+            filterObject: {
+                university: []
+            }
+            // metaData: createMetaData(this.props.resources)
         };
 
         this.handleSearchTextInput = this.handleSearchTextInput.bind(this);
+        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     }
 
     handleSearchTextInput(searchText) {
@@ -23,19 +28,40 @@ class FilterableResourceTable extends React.Component {
         });
     }
 
+    handleCheckboxChange(target) {
+        if (target.checked) {
+            this.setState((prevState) => {
+                filterObject: {
+                    university: prevState.filterObject.university.push(target.value);
+                }
+            });
+        } else {
+            this.setState((prevState) => {
+                filterObject: {
+                    university: prevState.filterObject.university.splice(prevState.filterObject.university.indexOf(target.value), 1)
+                }
+            });
+        }
+
+    }
+
     render() {
         return (
             <div>
                 <Col md={3}>
-                    <Filter
+                    <FilterSidebar
                         searchText={this.state.searchText}
+                        metaData={this.state.metaData}
+                        resources={this.props.resources}
                         onSearchTextInput={this.handleSearchTextInput}
+                        onCheckbox={this.handleCheckboxChange}
                     />
                 </Col>
                 <Col md={9}>
                     <ResourceTable
                         resources={this.props.resources}
                         searchText={this.state.searchText}
+                        filterObject={this.state.filterObject}
                     />
                 </Col>
             </div>
