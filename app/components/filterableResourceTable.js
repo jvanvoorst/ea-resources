@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import {Col} from 'react-bootstrap';
 
 import ResourceTable from './resourceTable';
-import FilterSidebar from './filterSidebar';
+import SearchBox from './SearchBox';
+import Facets from './facets';
+
+import {filterResources} from '../utils/helperFunctions';
 
 class FilterableResourceTable extends React.Component {
 
@@ -12,10 +15,10 @@ class FilterableResourceTable extends React.Component {
 
         this.state = {
             searchText: '',
-            filterObject: {
+            selectedFacets: {
                 university: []
-            }
-            // metaData: createMetaData(this.props.resources)
+            },
+            filteredResources: this.props.resources
         };
 
         this.handleSearchTextInput = this.handleSearchTextInput.bind(this);
@@ -24,20 +27,21 @@ class FilterableResourceTable extends React.Component {
 
     handleSearchTextInput(searchText) {
         this.setState({
-            searchText: searchText
+            searchText: searchText,
+            filteredResources: filterResources(this.props.resources, searchText)
         });
     }
 
     handleCheckboxChange(target) {
         if (target.checked) {
             this.setState((prevState) => {
-                filterObject: {
-                    university: prevState.filterObject.university.push(target.value);
+                selectedFacets: {
+                    university: prevState.facets.university.push(target.value)
                 }
             });
         } else {
             this.setState((prevState) => {
-                filterObject: {
+                selectedFacets: {
                     university: prevState.filterObject.university.splice(prevState.filterObject.university.indexOf(target.value), 1)
                 }
             });
@@ -49,19 +53,18 @@ class FilterableResourceTable extends React.Component {
         return (
             <div>
                 <Col md={3}>
-                    <FilterSidebar
+                    <SearchBox
                         searchText={this.state.searchText}
-                        metaData={this.state.metaData}
-                        resources={this.props.resources}
                         onSearchTextInput={this.handleSearchTextInput}
+                    />
+                    <Facets
+                        resources={this.state.filteredResources}
                         onCheckbox={this.handleCheckboxChange}
                     />
                 </Col>
                 <Col md={9}>
                     <ResourceTable
-                        resources={this.props.resources}
-                        searchText={this.state.searchText}
-                        filterObject={this.state.filterObject}
+                        resources={this.state.filteredResources}
                     />
                 </Col>
             </div>

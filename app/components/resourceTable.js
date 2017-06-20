@@ -10,18 +10,6 @@ class ResourceTable extends React.Component {
             <table className="table">
                 <tbody>
                     {this.props.resources.map((resource) => {
-                        let title = resource.title.toLowerCase();
-                        let description = resource.description.toLowerCase();
-                        let search = this.props.searchText.toLowerCase();
-
-                        if (title.indexOf(search) === -1 && description.indexOf(search) === -1) {
-                            return;
-                        }
-
-                        if (resource.university.indexOf(this.props.filterObject.university) === -1) {
-                            return;
-                        }
-
                         return (
                             <tr key={resource.title}>
                                 <td>
@@ -47,8 +35,6 @@ class ResourceTable extends React.Component {
 
 ResourceTable.propTypes = {
     resources: PropTypes.array.isRequired,
-    searchText: PropTypes.string.isRequired,
-    filterObject: PropTypes.object.isRequired
 };
 
 export default ResourceTable;

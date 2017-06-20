@@ -20,13 +20,13 @@ function parseResources(resources) {
 }
 
 // filter the resources array for titles and descriptions containing searchText
-function filterSearchResources(resources, searchText) {
+function filterResources(resources, searchText) {
     return resources.filter((resource) => {
         let title = resource.title.toLowerCase();
         let description = resource.description.toLowerCase();
         searchText = searchText.toLowerCase();
 
-        if (title.indexOf(searchText) === -1 && description.indexOf(searchText) === -1) {
+        if (title.indexOf(searchText) === -1) {
             return false;
         }
         return true;
@@ -39,7 +39,7 @@ function filterCheckboxResources(resources, target) {
     });
 }
 
-function createMetaData(resources) {
+function createFacetsCount(resources) {
     let initial = {university: {}};
 
     return resources.reduce((obj, resource) => {
@@ -52,4 +52,18 @@ function createMetaData(resources) {
     }, initial);
 }
 
-export {parseResources, filterSearchResources, filterCheckboxResources, createMetaData};
+export {parseResources, filterResources, filterCheckboxResources, createFacetsCount};
+
+
+// {this.props.resources.map((resource) => {
+//     let title = resource.title.toLowerCase();
+//     let description = resource.description.toLowerCase();
+//     let search = this.props.searchText.toLowerCase();
+//
+//     if (title.indexOf(search) === -1 && description.indexOf(search) === -1) {
+//         return;
+//     }
+//
+//     if (resource.university.indexOf(this.props.filterObject.university) === -1) {
+//         return;
+//     }
