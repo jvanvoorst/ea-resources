@@ -19,51 +19,24 @@ function parseResources(resources) {
     }, []);
 }
 
-// filter the resources array for titles and descriptions containing searchText
-function filterResources(resources, searchText) {
-    return resources.filter((resource) => {
-        let title = resource.title.toLowerCase();
-        let description = resource.description.toLowerCase();
-        searchText = searchText.toLowerCase();
-
-        if (title.indexOf(searchText) === -1) {
-            return false;
-        }
-        return true;
-    });
-}
-
-function filterCheckboxResources(resources, target) {
-    return resources.filter((resource) => {
-        return resource.university === target.value;
-    });
-}
-
-function createFacetsCount(resources) {
+function createFacetsCount(resources, searchText) {
     let initial = {university: {}};
 
     return resources.reduce((obj, resource) => {
-        if (obj.university[resource.university]) {
-            obj.university[resource.university] = obj.university[resource.university] + 1;
-        } else {
-            obj.university[resource.university] = 1;
+        let title = resource.title.toLowerCase();
+        let description = resource.description.toLowerCase();
+        let search = searchText.toLowerCase();
+
+        if (title.indexOf(search) !== -1 || description.indexOf(search) !== -1) {
+            if (obj.university[resource.university]) {
+                obj.university[resource.university] = obj.university[resource.university] + 1;
+            } else {
+                obj.university[resource.university] = 1;
+            }
         }
+
         return obj;
     }, initial);
 }
 
-export {parseResources, filterResources, filterCheckboxResources, createFacetsCount};
-
-
-// {this.props.resources.map((resource) => {
-//     let title = resource.title.toLowerCase();
-//     let description = resource.description.toLowerCase();
-//     let search = this.props.searchText.toLowerCase();
-//
-//     if (title.indexOf(search) === -1 && description.indexOf(search) === -1) {
-//         return;
-//     }
-//
-//     if (resource.university.indexOf(this.props.filterObject.university) === -1) {
-//         return;
-//     }
+export {parseResources, createFacetsCount};

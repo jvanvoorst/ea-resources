@@ -9,10 +9,8 @@ class SearchBox extends React.Component {
     }
 
     handleSearchTextChange(event) {
-        this.props.onSearchTextInput(event.target.value);
+        this.props.onSearchTextChange(event.target.value);
     }
-
-
 
     render() {
         return (
@@ -28,10 +26,9 @@ class SearchBox extends React.Component {
     }
 }
 
-
 SearchBox.propTypes = {
     searchText: PropTypes.string.isRequired,
-    onSearchTextInput: PropTypes.func.isRequired,
+    onSearchTextChange: PropTypes.func.isRequired,
 };
 
 export default SearchBox;

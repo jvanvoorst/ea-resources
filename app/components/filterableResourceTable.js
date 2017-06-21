@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Col} from 'react-bootstrap';
+import {Col, Row} from 'react-bootstrap';
 
 import ResourceTable from './resourceTable';
 import SearchBox from './SearchBox';
 import Facets from './facets';
-
-import {filterResources} from '../utils/helperFunctions';
 
 class FilterableResourceTable extends React.Component {
 
@@ -17,18 +15,16 @@ class FilterableResourceTable extends React.Component {
             searchText: '',
             selectedFacets: {
                 university: []
-            },
-            filteredResources: this.props.resources
+            }
         };
 
-        this.handleSearchTextInput = this.handleSearchTextInput.bind(this);
+        this.handleSearchTextChange = this.handleSearchTextChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     }
 
-    handleSearchTextInput(searchText) {
+    handleSearchTextChange(searchText) {
         this.setState({
             searchText: searchText,
-            filteredResources: filterResources(this.props.resources, searchText)
         });
     }
 
@@ -36,13 +32,13 @@ class FilterableResourceTable extends React.Component {
         if (target.checked) {
             this.setState((prevState) => {
                 selectedFacets: {
-                    university: prevState.facets.university.push(target.value)
+                    university: prevState.selectedFacets.university.push(target.value)
                 }
             });
         } else {
             this.setState((prevState) => {
                 selectedFacets: {
-                    university: prevState.filterObject.university.splice(prevState.filterObject.university.indexOf(target.value), 1)
+                    university: prevState.selectedFacets.university.splice(prevState.selectedFacets.university.indexOf(target.value), 1)
                 }
             });
         }
@@ -52,21 +48,28 @@ class FilterableResourceTable extends React.Component {
     render() {
         return (
             <div>
-                <Col md={3}>
+                <Row>
                     <SearchBox
                         searchText={this.state.searchText}
-                        onSearchTextInput={this.handleSearchTextInput}
+                        onSearchTextChange={this.handleSearchTextChange}
                     />
-                    <Facets
-                        resources={this.state.filteredResources}
-                        onCheckbox={this.handleCheckboxChange}
-                    />
-                </Col>
-                <Col md={9}>
-                    <ResourceTable
-                        resources={this.state.filteredResources}
-                    />
-                </Col>
+                </Row>
+                <Row>
+                    <Col md={3}>
+                        <Facets
+                            resources={this.props.resources}
+                            searchText={this.state.searchText}
+                            onCheckboxChange={this.handleCheckboxChange}
+                        />
+                    </Col>
+                    <Col md={9}>
+                        <ResourceTable
+                            resources={this.props.resources}
+                            searchText={this.state.searchText}
+                            selectedFacets={this.state.selectedFacets}
+                        />
+                    </Col>
+                </Row>
             </div>
         );
     }

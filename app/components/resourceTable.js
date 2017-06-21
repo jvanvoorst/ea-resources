@@ -3,13 +3,25 @@ import PropTypes from 'prop-types';
 
 class ResourceTable extends React.Component {
 
-
     render() {
-
         return (
             <table className="table">
                 <tbody>
                     {this.props.resources.map((resource) => {
+                        let title = resource.title.toLowerCase();
+                        let description = resource.description.toLowerCase();
+                        let search = this.props.searchText.toLowerCase();
+
+                        if (title.indexOf(search) === -1 && description.indexOf(search) === -1) {
+                            return;
+                        }
+
+                        if (this.props.selectedFacets.university.length) {
+                            if (this.props.selectedFacets.university.indexOf(resource.university) === -1) {
+                                return;
+                            }
+                        }
+
                         return (
                             <tr key={resource.title}>
                                 <td>
@@ -35,6 +47,8 @@ class ResourceTable extends React.Component {
 
 ResourceTable.propTypes = {
     resources: PropTypes.array.isRequired,
+    searchText: PropTypes.string.isRequired,
+    selectedFacets: PropTypes.object.isRequired
 };
 
 export default ResourceTable;
