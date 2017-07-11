@@ -18,23 +18,27 @@ class Facets extends React.Component {
         let metaData = createFacetsCount(this.props.resources, this.props.searchText);
 
         let facets = Object.keys(metaData.university).map((key) => {
-            if (key)
+            // if (key)
             return (
-                <div key={key}>
-                    <input
-                        type="checkBox"
-                        value={key}
-                        onChange={this.handleCheckboxChange}
-                    />
-                    <label htmlFor={key}>{key}</label>
-                     <span>{metaData.university[key]}</span>
-                </div>
+                <form key={key} className="form-inline">
+                    <div className="form-group">
+                        <input
+                            className="form-control"
+                            type="checkBox"
+                            value={key}
+                            onChange={this.handleCheckboxChange}
+                        />
+                        <label className="label-text" htmlFor={key}>{key}</label>
+                         <span>{metaData.university[key]}</span>
+                     </div>
+                </form>
             );
         });
 
         return (
             <div>
-                <p>Universities</p>
+                <h4>Universities</h4>
+                <hr></hr>
                 <div>
                     {facets}
                 </div>

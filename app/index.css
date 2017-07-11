@@ -5,3 +5,15 @@
     display: inline-block;
     padding-right: 5rem
 }
+
+.search-box {
+     margin: 40px 0 40px 20px;
+ }
+
+.label-text {
+    margin-left: 15px;
+    margin-right: 7px;
+}
+.search-label {
+    padding-left: 10px;
+}

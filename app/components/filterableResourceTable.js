@@ -49,10 +49,12 @@ class FilterableResourceTable extends React.Component {
         return (
             <div>
                 <Row>
-                    <SearchBox
-                        searchText={this.state.searchText}
-                        onSearchTextChange={this.handleSearchTextChange}
-                    />
+                    <Col md={9} mdOffset={3}>
+                        <SearchBox
+                            searchText={this.state.searchText}
+                            onSearchTextChange={this.handleSearchTextChange}
+                        />
+                    </Col>
                 </Row>
                 <Row>
                     <Col md={3}>

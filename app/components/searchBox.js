@@ -14,13 +14,17 @@ class SearchBox extends React.Component {
 
     render() {
         return (
-            <form>
-                <input
-                    type="text"
-                    placeholder="Search"
-                    value={this.props.searchText}
-                    onChange={this.handleSearchTextChange}
-                />
+            <form className="form-inline">
+                <div className="form-group">
+                    <input
+                        className="form-control search-box"
+                        type="text"
+                        placeholder="Search"
+                        value={this.props.searchText}
+                        onChange={this.handleSearchTextChange}
+                    />
+                    <label className="search-label">Search Title and Description</label>
+                </div>
             </form>
         );
     }
